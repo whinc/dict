@@ -1,5 +1,23 @@
-#! /usr/bin/sh
+#! /usr/bin/sh 
 # dict.sh - provide translation service with Baidu translater API.
+
+program="$0"
+
+show_usage ()
+{
+    echo -e "Usage:\t$(basename $program) [word]..."
+    echo -e "\tTraslate word(s) to chinese."
+    return 0
+}
+
+# check arguments
+if [[ $# -eq 0 ]]; then
+    show_usage
+    exit 0
+elif [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    show_usage
+    exit 0
+fi
 
 # configuration
 q="$*"
@@ -27,4 +45,3 @@ fi
 dst=$(echo -n "$json" | sed -r "s/.*dst\" *: *\"([^\"]*).*/\1/g")
 
 echo -e "$dst"
-
